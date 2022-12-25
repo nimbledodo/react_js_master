@@ -2,102 +2,25 @@ import React from "react";
 import { useForm } from "react-hook-form";
 
 interface IForm {
-  email: string;
-  username: string;
-  firstname: string;
-  lastname: string;
-  pw: string;
-  pw1: string;
-  extraError?: string;
+  toDo: string;
 }
+
 function ToDoList() {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    setError,
-  } = useForm<IForm>({
-    defaultValues: {
-      email: "@naver.com",
-    },
-  });
-  const onValid = (data: IForm) => {
-    if (data.pw !== data.pw1) {
-      setError(
-        "pw1",
-        { message: "Passwords do not match" },
-        { shouldFocus: true }
-      );
-    }
-    //setError("extraError", { message: "Server is offline" });
+  const { register, handleSubmit, setValue } = useForm<IForm>();
+  const handleValid = (data: IForm) => {
+    console.log("add todo", data.toDo);
+    setValue("toDo", "");
   };
   return (
     <div>
-      <form
-        style={{ display: "flex", flexDirection: "column" }}
-        onSubmit={handleSubmit(onValid)}
-      >
+      <form onSubmit={handleSubmit(handleValid)}>
         <input
-          {...register("email", {
-            required: "Email is required",
-            pattern: {
-              value: /^[A-Za-z0-9._%+-]+@naver.com$/,
-              message: "Only naver.com email is allowed",
-            },
+          {...register("toDo", {
+            required: "Please write a todo",
           })}
-          placeholder="Email"
+          placeholder="Write a todo"
         />
-        <span>{errors?.email?.message as string}</span>
-        <input
-          {...register("username", {
-            required: "Username is required",
-            minLength: { value: 10, message: "Username is too short" },
-          })}
-          placeholder="Username"
-        />
-        <span>{errors?.username?.message as string}</span>
-        <input
-          {...register("firstname", {
-            required: "First Name is required",
-            validate: {
-              noNico: (value) =>
-                value.includes("nico") ? "nico is not allowed" : true,
-              noNick: (value) =>
-                value.includes("nick") ? "nick is not allowed" : true,
-            },
-          })}
-          placeholder="First Name"
-        />
-        <span>{errors?.firstname?.message as string}</span>
-        <input
-          {...register("lastname", { required: "Last Name is required" })}
-          placeholder="Last Name"
-        />
-        <span>{errors?.lastname?.message as string}</span>
-        <input
-          {...register("pw", {
-            required: "Password is required",
-            minLength: {
-              value: 5,
-              message: "Your password is too short",
-            },
-          })}
-          placeholder="Password"
-        />
-        <span>{errors?.pw?.message as string}</span>
-        <input
-          {...register("pw1", {
-            required: "Password Confirmation is required",
-            minLength: {
-              value: 5,
-              message: "Your password is too short",
-            },
-          })}
-          placeholder="Confirm Password"
-        />
-        <span>{errors?.pw1?.message as string}</span>
         <button>Add</button>
-        <span>{errors?.extraError?.message as string}</span>
       </form>
     </div>
   );
