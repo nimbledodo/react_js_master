@@ -144,12 +144,18 @@ interface PriceData {
 }
 
 function Coin() {
-    const { coinId } = useParams<RouteParams>();
+  const { coinId } = useParams<RouteParams>();
   const { state } = useLocation<RouteState>();
   const priceMatch = useRouteMatch("/:coinId/price");
   const chartMatch = useRouteMatch("/:coinId/chart");
-  const {isLoading: infoLoading, data: infoData} = useQuery<InfoData>(["info",coinId], () => fetchCoinInfo(coinId))
-  const {isLoading:tickersLoading, data:tickersData} = useQuery<PriceData>(["tickers",coinId],()=>fetchCoinTickers(coinId)) 
+  const { isLoading: infoLoading, data: infoData } = useQuery<InfoData>(
+    ["info", coinId],
+    () => fetchCoinInfo(coinId)
+  );
+  const { isLoading: tickersLoading, data: tickersData } = useQuery<PriceData>(
+    ["tickers", coinId],
+    () => fetchCoinTickers(coinId)
+  );
 
   /* const [loading, setLoading] = useState(true);
   const [info, setInfo] = useState<InfoData>();
@@ -168,7 +174,7 @@ function Coin() {
       setLoading(false);
     })();
   }, [coinId]); */
-const loading = infoLoading || tickersLoading
+  const loading = infoLoading || tickersLoading;
 
   return (
     <Container>
