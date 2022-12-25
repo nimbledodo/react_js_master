@@ -59,8 +59,12 @@ function ToDoList() {
         <input
           {...register("firstname", {
             required: "First Name is required",
-            validate: (value) =>
-              value.includes("nico") ? "nico is not allowed" : true,
+            validate: {
+              noNico: (value) =>
+                value.includes("nico") ? "nico is not allowed" : true,
+              noNick: (value) =>
+                value.includes("nick") ? "nick is not allowed" : true,
+            },
           })}
           placeholder="First Name"
         />
