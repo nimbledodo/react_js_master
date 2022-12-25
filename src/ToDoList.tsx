@@ -1,31 +1,36 @@
-import React, { useState } from "react";
+import React from "react";
 import { useForm } from "react-hook-form";
 
+interface IForm {
+  email: string;
+  username: string;
+  firstname: string;
+  lastname: string;
+  pw: string;
+  pw1: string;
+  extraError?: string;
+}
 function ToDoList() {
-  /*   const [toDo, setToDo] = useState("");
-  const onChange = (event: React.FormEvent<HTMLInputElement>) => {
-    const {
-      currentTarget: { value },
-    } = event;
-    setToDo(value);
-  };
-  const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-  }; */
-  /*   return (
-    <div>
-      <form onSubmit={onSubmit}>
-        <input onChange={onChange} value={toDo} placeholder="Write a todo" />
-        <button>Add</button>
-      </form>
-    </div>
-  ); */
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
-  const onValid = (data: any) => {};
+    setError,
+  } = useForm<IForm>({
+    defaultValues: {
+      email: "@naver.com",
+    },
+  });
+  const onValid = (data: IForm) => {
+    if (data.pw !== data.pw1) {
+      setError(
+        "pw1",
+        { message: "Passwords do not match" },
+        { shouldFocus: true }
+      );
+    }
+    //setError("extraError", { message: "Server is offline" });
+  };
   return (
     <div>
       <form
@@ -46,13 +51,17 @@ function ToDoList() {
         <input
           {...register("username", {
             required: "Username is required",
-            minLength: 10,
+            minLength: { value: 10, message: "Username is too short" },
           })}
           placeholder="Username"
         />
         <span>{errors?.username?.message as string}</span>
         <input
-          {...register("firstname", { required: "First Name is required" })}
+          {...register("firstname", {
+            required: "First Name is required",
+            validate: (value) =>
+              value.includes("nico") ? "nico is not allowed" : true,
+          })}
           placeholder="First Name"
         />
         <span>{errors?.firstname?.message as string}</span>
@@ -84,6 +93,7 @@ function ToDoList() {
         />
         <span>{errors?.pw1?.message as string}</span>
         <button>Add</button>
+        <span>{errors?.extraError?.message as string}</span>
       </form>
     </div>
   );
