@@ -45,18 +45,30 @@ function Chart({ coinId }: ChartProps) {
               },
               background: "transparent",
             },
-            grid: { show: true },
+            grid: { show: false },
             stroke: {
               curve: "smooth",
               width: 4,
             },
             yaxis: {
-              show: true,
+              show: false,
             },
             xaxis: {
-              axisBorder: { show: true },
-              axisTicks: { show: true },
-              labels: { show: true },
+              axisBorder: { show: false },
+              axisTicks: { show: false },
+              labels: { show: false },
+              type: "datetime",
+              categories: data?.map((price) => Number(price.time_close) * 1000),
+            },
+            fill: {
+              type: "gradient",
+              gradient: { gradientToColors: ["#0be881"], stops: [0, 100] },
+            },
+            colors: ["#0fbcf9"],
+            tooltip: {
+              y: {
+                formatter: (value) => `$${value.toFixed(2)}`,
+              },
             },
           }}
         />
