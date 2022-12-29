@@ -12,15 +12,53 @@ const Wrapper = styled(motion.div)`
 const Box = styled(motion.div)`
   width: 200px;
   height: 200px;
-  background-color: white;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  background-color: rgba(255, 255, 255, 0.2);
   border-radius: 15px;
   box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1), 0 10px 20px rgba(0, 0, 0, 0.06);
 `;
 
+const Circle = styled(motion.div)`
+  background-color: white;
+  height: 70px;
+  width: 70px;
+  border-radius: 35px;
+  place-self: center;
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1), 0 10px 20px rgba(0, 0, 0, 0.06);
+`;
+const boxVariants = {
+  start: { opacity: 0.5, scale: 0.5 },
+  end: {
+    opacity: 1,
+    scale: 1,
+    transition: {
+      type: "spring",
+      duration: 0.5,
+      bounce: 0.5,
+      delayChildren: 0.5,
+      staggerChildren: 0.5,
+    },
+  },
+};
+
+const circleVatiants = {
+  start: {
+    opacity: 0,
+  },
+  end: {
+    opacity: 1,
+  },
+};
 function App() {
   return (
     <Wrapper>
-      <Box initial={{ scale: 0 }} animate={{ scale: 1, rotateZ: 360 }} />
+      <Box variants={boxVariants} initial="start" animate="end">
+        <Circle variants={circleVatiants} />
+        <Circle variants={circleVatiants} />
+        <Circle variants={circleVatiants} />
+        <Circle variants={circleVatiants} />
+      </Box>
     </Wrapper>
   );
 }
