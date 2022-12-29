@@ -37,14 +37,14 @@ const boxVariants = {
 
 function App() {
   const x = useMotionValue(0);
-  const potato = useTransform(x, [-800, 0, 800], [2, 1, 0]);
+  const rotate = useTransform(x, [-800, 800], [-360, 360]);
   // useEffect(() => {
   //   x.onChange(() => console.log(x.get()));
   // }, [x]);
   return (
     <Wrapper>
       {/* <button onClick={() => x.set(20)}>Click me</button> */}
-      <Box style={{ x, scale: potato }} drag="x" dragSnapToOrigin></Box>
+      <Box style={{ x, rotateZ: rotate }} drag="x" dragSnapToOrigin></Box>
     </Wrapper>
   );
 }
