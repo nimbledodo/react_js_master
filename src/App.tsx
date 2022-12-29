@@ -28,37 +28,14 @@ const Circle = styled(motion.div)`
   box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1), 0 10px 20px rgba(0, 0, 0, 0.06);
 `;
 const boxVariants = {
-  start: { opacity: 0.5, scale: 0.5 },
-  end: {
-    opacity: 1,
-    scale: 1,
-    transition: {
-      type: "spring",
-      duration: 0.5,
-      bounce: 0.5,
-      delayChildren: 0.5,
-      staggerChildren: 0.5,
-    },
-  },
+  hover: { scale: 1.5, rotateZ: 90 },
+  click: { borderRadius: "100px", scale: 1 },
 };
 
-const circleVatiants = {
-  start: {
-    opacity: 0,
-  },
-  end: {
-    opacity: 1,
-  },
-};
 function App() {
   return (
     <Wrapper>
-      <Box variants={boxVariants} initial="start" animate="end">
-        <Circle variants={circleVatiants} />
-        <Circle variants={circleVatiants} />
-        <Circle variants={circleVatiants} />
-        <Circle variants={circleVatiants} />
-      </Box>
+      <Box variants={boxVariants} whileHover="hover" whileTap="click"></Box>
     </Wrapper>
   );
 }
