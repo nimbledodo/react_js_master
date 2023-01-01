@@ -9,12 +9,12 @@ function App() {
     <Router>
       <Header />
       <Switch>
-        <Route path="/" />
-        <Home />
         <Route path="/tv" />
         <Tv />
         <Route path="/search" />
         <Search />
+        <Route path="/" />
+        <Home />
       </Switch>
     </Router>
   );
