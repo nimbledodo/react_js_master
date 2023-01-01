@@ -9,12 +9,15 @@ function App() {
     <Router>
       <Header />
       <Switch>
-        <Route path="/tv" />
-        <Tv />
-        <Route path="/search" />
-        <Search />
-        <Route path="/" />
-        <Home />
+        <Route path="/tv">
+          <Tv />
+        </Route>
+        <Route path="/search">
+          <Search />
+        </Route>
+        <Route path="/">
+          <Home />
+        </Route>
       </Switch>
     </Router>
   );
