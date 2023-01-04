@@ -24,6 +24,8 @@ const Header = styled.header`
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
+  gap: 10px 10px;
 `;
 
 const Title = styled.h1`
@@ -52,6 +54,7 @@ const OverviewItem = styled.div`
     font-weight: 400;
     text-transform: uppercase;
     margin-bottom: 5px;
+    color: ${(props) => props.theme.textColor};
   }
 `;
 const Description = styled.p`
@@ -75,6 +78,20 @@ const Tab = styled.span<{ isActive: boolean }>`
   border-radius: 10px;
   color: ${(props) =>
     props.isActive ? props.theme.accentColor : props.theme.textColor};
+  a {
+    display: block;
+  }
+`;
+
+const Button = styled.span`
+  text-align: center;
+  text-transform: uppercase;
+  font-size: 12px;
+  font-weight: 400;
+  background-color: ${(props) => props.theme.accentColor};
+  padding: 5px 5px;
+  border-radius: 5px;
+  color: ${(props) => props.theme.textColor};
   a {
     display: block;
   }
@@ -171,7 +188,11 @@ function Coin() {
         <Title>
           {state?.name ? state.name : loading ? "Loading..." : infoData?.name}
         </Title>
+        <Link to="/">
+          <Button>Home</Button>
+        </Link>
       </Header>
+
       {loading ? (
         <Loader>Loading...</Loader>
       ) : (

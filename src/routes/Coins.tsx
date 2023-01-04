@@ -17,13 +17,15 @@ const Header = styled.header`
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
+  gap: 10px 10px;
 `;
 
 const CoinsList = styled.ul``;
 
 const Coin = styled.li`
-  background-color: white;
-  color: ${(props) => props.theme.bgColor};
+  background-color: rgba(0, 0, 0, 0.5);
+  color: ${(props) => props.theme.textColor};
   border-radius: 15px;
   margin-bottom: 10px;
   a {
@@ -48,6 +50,23 @@ const Img = styled.img`
   width: 25px;
   height: 25px;
   margin-right: 10px;
+`;
+
+const Button = styled.span`
+  text-align: center;
+  text-transform: uppercase;
+  font-size: 12px;
+  font-weight: 400;
+  background-color: ${(props) => props.theme.accentColor};
+  padding: 5px 5px;
+  border-radius: 5px;
+  color: ${(props) => props.theme.textColor};
+  a {
+    display: block;
+  }
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 interface ICoin {
@@ -76,7 +95,7 @@ function Coins() {
       </Helmet>
       <Header>
         <Title>Coins</Title>
-        <button onClick={toggleDarkAtom}>Toggle Mode</button>
+        <Button onClick={toggleDarkAtom}>Toggle Mode</Button>
       </Header>
       {isLoading ? (
         <Loader>Loading...</Loader>
