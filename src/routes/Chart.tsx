@@ -27,54 +27,55 @@ function Chart({ coinId }: ChartProps) {
     }
   );
   const isDark = useRecoilValue(isDarkAtom);
+
   return (
     <div>
       {isLoading ? (
         "Loading chart.."
       ) : (
         <ApexChart
-          type="line"
-          series={[
-            {
-              name: "Price",
-              data: data?.map((price) => price.close) as number[],
-            },
-          ]}
+          type="candlestick"
+          series={
+            [
+              {
+                data: data?.map((price) => ({
+                  x: Number(price.time_close) * 1000,
+                  y: [
+                    Number(price.open),
+                    Number(price.high),
+                    Number(price.low),
+                    Number(price.close),
+                  ],
+                })),
+              },
+            ] as any[]
+          }
           options={{
             theme: {
               mode: isDark ? "dark" : "light",
             },
             chart: {
-              height: 300,
+              type: "candlestick",
+              height: 350,
               width: 500,
               toolbar: {
                 show: false,
               },
               background: "transparent",
             },
-            grid: { show: false },
             stroke: {
               curve: "smooth",
-              width: 4,
+              width: 2,
             },
             yaxis: {
               show: false,
             },
             xaxis: {
-              axisBorder: { show: false },
-              axisTicks: { show: false },
-              labels: { show: false },
               type: "datetime",
-              categories: data?.map((price) => Number(price.time_close) * 1000),
-            },
-            fill: {
-              type: "gradient",
-              gradient: { gradientToColors: ["#0be881"], stops: [0, 100] },
-            },
-            colors: ["#0fbcf9"],
-            tooltip: {
-              y: {
-                formatter: (value) => `$${value.toFixed(2)}`,
+              labels: {
+                style: {
+                  colors: isDark ? "white" : "black",
+                },
               },
             },
           }}
