@@ -10,7 +10,7 @@ export enum Categories {
 export interface IToDo {
   text: string;
   id: number;
-  category: Categories;
+  category: string;
 }
 
 const { persistAtom } = recoilPersist({
@@ -21,6 +21,12 @@ const { persistAtom } = recoilPersist({
 export const categoryState = atom<Categories>({
   key: "category",
   default: Categories.TO_DO,
+});
+
+export const catState = atom<string[]>({
+  key: "cat",
+  default: ["TO_DO", "DOING", "DONE"],
+  effects_UNSTABLE: [persistAtom],
 });
 
 export const toDoState = atom<IToDo[]>({
